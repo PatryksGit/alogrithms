@@ -6,10 +6,12 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/index.js",
-    "generate": "node src/generate-data.js"
+    "generate": "node src/generate-data.js",
+    "sorting": "node src/sorting.js"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
+    "prettier": "^2.8.1",
     "uuid": "^8.3.2"
   }
 }
