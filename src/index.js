@@ -19,8 +19,9 @@ function countIotDevicesByUserName(users, mobileDevices, iotDevices) {
 
   const mobileIdToUserIdMap = new Map(mobileDevices.map((device) => [device.id, device.user]));
 
-  const usersWithIots = iotDevices.reduce((users, device) => {
-    const userId = mobileIdToUserIdMap.get(device.mobile);
+  const usersWithIots = iotDevices.reduce((users, iot) => {
+    //
+    const userId = mobileIdToUserIdMap.get(iot.mobile);
     const userName = userIdToNameMap.get(userId);
     if (!users[userName]) {
       users[userName] = 0;
@@ -31,7 +32,7 @@ function countIotDevicesByUserName(users, mobileDevices, iotDevices) {
 
   const result = {};
   for (const key in usersWithIots) {
-    const name = key.split(" -")[0];
+    const name = key.split(" ")[0];
     if (name in result) {
       result[name] += usersWithIots[key];
     } else {
