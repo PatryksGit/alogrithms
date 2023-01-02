@@ -1,5 +1,5 @@
 //  @TODO: try bubble sort method
-const arr = Array.from({ length: 10000 }, () => Math.random() * 100);
+const arr = Array.from({ length: 15000 }, () => Math.random() * 100);
 
 const checkTheDuration = (func) => {
   const startTime = performance.now();
@@ -24,6 +24,12 @@ const sortingMethod = (a, b) => {
   return 0;
 };
 
+const startTime = performance.now();
+arr.sort(sortingMethod);
+const endTime = performance.now();
+const duration = (endTime - startTime).toFixed(3);
+console.log(`function sortingMethod took ${duration} miliseconds`);
+
 const sort2 = () => {
   let sorted = false;
   while (!sorted) {
@@ -38,5 +44,4 @@ const sort2 = () => {
   return arr;
 };
 checkTheDuration(builtInSortMethod);
-checkTheDuration(sortingMethod);
 checkTheDuration(sort2);
