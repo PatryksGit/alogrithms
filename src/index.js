@@ -11,24 +11,26 @@ const path = require("path");
   const endTime = performance.now();
 
   const duration = (endTime - startTime) / 1000;
-  console.log(`function count took ${duration.toFixed(2)} seconds`);
+  console.log(`function count took ${duration.toFixed(3)} seconds`);
 })();
 
 function countIotDevicesByUserName(users, mobileDevices, iotDevices) {
   const userIdToNameMap = new Map(users.map((user) => [user.id, user.name]));
-
   const mobileIdToUserIdMap = new Map(mobileDevices.map((device) => [device.id, device.user]));
 
   const usersWithIots = iotDevices.reduce((users, iot) => {
     //
     const userId = mobileIdToUserIdMap.get(iot.mobile);
     const userName = userIdToNameMap.get(userId);
+
     if (!users[userName]) {
       users[userName] = 0;
     }
     users[userName]++;
     return users;
   }, {});
+
+  console.log(usersWithIots);
 
   const result = {};
   for (const key in usersWithIots) {
@@ -66,33 +68,29 @@ function countIotDevicesByUserName(users, mobileDevices, iotDevices) {
 //   console.log("users_with_iots", users_with_iots);
 // }
 
-// function count(users, mobileDevices, iotDevices) {
-//   let mobileDevicesCopy = [...mobileDevices];
-//
-//   return users.map((user) => {
-//     // find all devices from a given user
-//     const devices = mobileDevicesCopy.filter(
-//       (device) => device.user === user.id
-//     );
-//
-//     mobileDevicesCopy = mobileDevicesCopy.filter(
-//       (mobile) => !devices.includes(mobile)
-//     );
-//
-//     // find all iots from a given user
-//     if (!devices.length) {
-//       return `${user.name} has no iot devices`;
-//     }
-//
-//     const iots = [];
-//     devices.forEach((dev) => {
-//       const filteredIotsArr = iotDevices.filter((iot) => iot.mobile === dev.id);
-//       const iterator = filteredIotsArr.values();
-//       for (const iot of iterator) {
-//         iots.push(iot);
-//       }
-//     });
-//
-//     return `${user.name} owns ${devices.length} mobile devices and ${iots.length} iots`;
-//   });
-// }
+function count(users, mobileDevices, iotDevices) {
+  let mobileDevicesCopy = [...mobileDevices];
+
+  return users.map((user) => {
+    // find all devices from a given user
+    const devices = mobileDevicesCopy.filter((device) => device.user === user.id);
+
+    mobileDevicesCopy = mobileDevicesCopy.filter((mobile) => !devices.includes(mobile));
+
+    // find all iots from a given user
+    if (!devices.length) {
+      return `${user.name} has no iot devices`;
+    }
+
+    const iots = [];
+    devices.forEach((dev) => {
+      const filteredIotsArr = iotDevices.filter((iot) => iot.mobile === dev.id);
+      const iterator = filteredIotsArr.values();
+      for (const iot of iterator) {
+        iots.push(iot);
+      }
+    });
+
+    return `${user.name} owns ${devices.length} mobile devices and ${iots.length} iots`;
+  });
+}
