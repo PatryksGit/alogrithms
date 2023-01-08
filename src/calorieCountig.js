@@ -20,7 +20,6 @@ function groupNumbers(text) {
   if (currentGroup.length > 0) {
     groups.push(currentGroup);
   }
-  console.log(groups);
   return groups;
 }
 
