@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const data = fs.readFileSync(path.resolve(__dirname, "../data/input.txt")).toString();
+const data = fs.readFileSync(path.resolve(__dirname, "../data/adventOfCode/day_1_input.txt"), "utf-8");
 
 function groupNumbers(text) {
   const lines = text.split("\n");
@@ -25,12 +25,14 @@ function groupNumbers(text) {
 
 const calorieCountig = () => {
   const input = groupNumbers(data);
-  const arrOfResults = [];
+  let result = 0;
   input.forEach((arr) => {
     const value = arr.reduce((total, value) => total + value, 0);
-    arrOfResults.push(value);
+    if (value > result) {
+      result = value;
+    }
   });
-  return arrOfResults.sort((a, b) => a - b).reverse()[0];
+  return result;
 };
 
 console.log(calorieCountig());
