@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const data = fs.readFileSync(path.resolve(__dirname, "../data/adventOfCode/day_1_input.txt")).toString();
+const data = fs.readFileSync(path.resolve(__dirname, "../data/adventOfCode/day_1_input.txt"), "utf-8");
 
 function groupNumbers(text) {
   const lines = text.split("\n");
