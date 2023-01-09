@@ -25,12 +25,14 @@ function groupNumbers(text) {
 
 const calorieCountig = () => {
   const input = groupNumbers(data);
-  const arrOfResults = [];
+  let result = 0;
   input.forEach((arr) => {
     const value = arr.reduce((total, value) => total + value, 0);
-    arrOfResults.push(value);
+    if (value > result) {
+      result = value;
+    }
   });
-  return arrOfResults.sort((a, b) => a - b).reverse()[0];
+  return result;
 };
 
 console.log(calorieCountig());
